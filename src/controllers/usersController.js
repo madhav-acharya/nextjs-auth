@@ -101,4 +101,24 @@ export const getUserProfile = async (userId) => {
             ...user._doc,
         }
     };
+
+    export const getUserByEmail = async (email) => {
+    if (!userId) {
+        throw new Error('Email is required');
+    }
+
+    await connectDB();
+
+    const user = await User.find(email);
+    if (!user) {
+        throw new Error('User not found');
+    }
+
+    return {
+        message: 'User profile retrieved successfully',
+        success: true,
+        user: {
+            ...user._doc,
+        }
+    };
 }
